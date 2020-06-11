@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>	
+.marquee {
+  width: 800px;  
+  -webkit-animation: marquee 100s infinite linear;
+  margin: 40px;
+  outline:1px solid red;
+}
+
+@-webkit-keyframes marquee {
+  0% {
+    background-position: 0;
+  }
+
+  100% {
+    background-position: -1190px;
+  }
+}
+
+@-moz-keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+} 
+
+@-webkit-keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+/* IE */
+@-ms-keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+} 
+/* Opera and prob css3 final iteration */
+@keyframes blink {
+    0% {
+        opacity:1;
+    }
+    50% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+} 
+.blink-image {
+    -moz-animation: blink normal 2s infinite ease-in-out; /* Firefox */
+    -webkit-animation: blink normal 2s infinite ease-in-out; /* Webkit */
+    -ms-animation: blink normal 2s infinite ease-in-out; /* IE */
+    animation: blink normal 2s infinite ease-in-out; /* Opera and prob css3 final iteration */
+}
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  -webkit-animation-name: fadeIn; /* Fade in the background */
+  -webkit-animation-duration: 0.4s;
+  animation-name: fadeIn;
+  animation-duration: 0.4s
+}
+
+/* Modal Content */
+.modal-content {
+  position: fixed;
+  bottom: 0;
+  background-color: #fefefe;
+  width: 100%;
+  -webkit-animation-name: slideIn;
+  -webkit-animation-duration: 0.4s;
+  animation-name: slideIn;
+  animation-duration: 0.4s
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: black;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: black;
+  color: white;
+}
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+  from {bottom: -300px; opacity: 0} 
+  to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn {
+  from {bottom: -300px; opacity: 0}
+  to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0} 
+  to {opacity: 1}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0} 
+  to {opacity: 1}
+}
+
+  html{height:100%;}
+  body {
+  background:#0D343A;
+  background:-webkit-gradient(linear,0% 0%,0% 100%, from(rgba(13,52,58,1) ), to(#000000)  );
+  background: -moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(0,0,0,1) 100%);
+
+  overflow:scroll;}
+
+
+.drop {
+  background:-webkit-gradient(linear,0% 0%,0% 100%, from(rgba(13,52,58,1) ), to(rgba(255,255,255,0.6))  );
+  background: -moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(255,255,255,.6) 100%);
+	width:1px;
+	height:89px;
+	position: absolute;
+	bottom:200px;
+	-webkit-animation: fall .63s linear infinite;
+  -moz-animation: fall .63s linear infinite;
+  
+}
+
+/* animate the drops*/
+@-webkit-keyframes fall {
+	to {margin-top:900px;}
+}
+@-moz-keyframes fall {
+	to {margin-top:900px;}
+}
+
+#background-wrap {
+    bottom: 0;
+	left: 0;
+	padding-top: 50px;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: -1;
+}
+table {
+overflow: scroll;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid red;
+  text-align: left;
+  padding: 8px;
+}
+
+
+/* KEYFRAMES */	
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="C:/inetpub/wwwroot/Weather/jvectormap/jquery-jvectormap-1.2.2.css">
+<script src="C:/inetpub/wwwroot/Weather/sparkline/jquery.sparkline.min.js"></script>
+<script src="C:/inetpub/wwwroot/Weather/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="C:/inetpub/wwwroot/Weather/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<script src="C:/inetpub/wwwroot/Weather/chartjs/Chart.min.js"></script>
+<script src="C:/inetpub/wwwroot/Weather/adminlte/pages/dashboard2.js"></script>
+<script src="C:/inetpub/wwwroot/Weather/adminlte/demo.js"></script>
+
+<script>
+function GetDay(i)
+{
+	if(i==0) { return 'Sunday'; } else if (i==1) { return 'Monday'; } else if (i==2) { return 'Tuesday'; }
+	else if (i==3) { return 'Wednesday'; } else if (i==4) { return 'Thursday'; } else if (i==5) { return 'Friday';
+	} else if (i==6) { return 'Saturday'; }
+}
+function SearchByCityName()
+{
+var citycode= document.getElementById('city').value;
+ $("#data tbody tr").remove(); 
+ $("#data1 tbody tr").remove();
+ var name=document.getElementById("search").value;
+ var today = new Date();
+ 
+ https://geocode.xyz/vadgaon.,+57632+karad?json=1
+ 
+$.ajax({
+    url: "http://api.openweathermap.org/data/2.5/forecast?q="+name+"&appid=dcd9966da430427a5d96d07b3b2ee497",
+
+    dataType: "jsonp",
+    success: function( response ) {				
+		var table = document.getElementById("data");
+		var id=0;
+			var table1 = document.getElementById("data1");
+			var row1 = table1.insertRow(0);
+			var row2 = table1.insertRow(1);
+		var id1=0;
+		
+		
+		$.each(response.list,function(index, value)
+		{			
+			var cell21 = row1.insertCell(id1);
+			var d = new Date(value.dt_txt);
+			//alert(GetDay(d.getDay()));//0;
+			cell21.innerHTML = GetDay(d.getDay())+ " "+ value.dt_txt.substr(11, 2);// value.dt_txt.substr(8, 2) + "{" + value.dt_txt.substr(11, 2)+"}";		
+			cell21.style.fontSize = "small";
+			var cell22 = row2.insertCell(id1);
+			cell22.innerHTML = parseInt(parseInt(value.main.temp - 273 ))+ '°C';					
+			
+			cell22.style.backgroundColor = "#FFD1A9";
+			cell21.style.backgroundColor = "#DFF280";
+			cell22.id = "status_"+value.weather[0].main + '_' +value.weather[0].description + '_cloud_'+value.clouds.all+"_wind_"+value.wind.speed+"_"+value.wind.deg+"_Humidity_"+value.main.humidity;
+			//
+			cell22.onmouseover = function(){getid(this)};
+			if(value.weather[0].main == "Rain")
+			{	
+			cell22.style.backgroundImage = "url('Rain.png')";
+			if(value.weather[0].description=="light rain")
+			{
+				cell22.style.backgroundColor = "skyblue";
+			}
+			else
+			{
+				cell22.style.backgroundColor = "blue";
+			}
+		}
+		else if(value.weather[0].main == "Clouds")
+		{
+			if(value.weather[0].description=="scattered clouds")
+			{
+			cell22.style.backgroundImage = "url('Cloud1.png')";
+			}
+			else
+			{
+			cell22.style.backgroundImage = "url('Cloud.png')";			
+			}
+		}
+		else if (value.weather[0].main == "Clear")
+			{
+				//alert(value.dt_txt.substr(11, 2))
+				if(value.dt_txt.substr(11, 2)=="21" || value.dt_txt.substr(11, 2)=="00" || value.dt_txt.substr(11, 2)=="03" || value.dt_txt.substr(11, 2)=="06" )
+					{
+						cell22.style.backgroundImage = "url('Clear1.png')";
+					}
+					else
+					{
+						cell22.style.backgroundImage = "url('Clear.png')";
+					}
+			}
+			//
+			id1++;
+		});
+		
+		$.each(response.list,function(index, value)
+		{
+		if(id.toString() == "10".toString()) {return ;}
+		id++;
+		var d=new Date(value.dt_txt);
+		//alert(d.toLocaleTimeString())
+		var row = table.insertRow(0);
+		var cell1 = row.insertCell(0);
+		
+		var cell2 = row.insertCell(1);
+		var cell3 = row.insertCell(2);
+		var cell4 = row.insertCell(2);
+		if(value.dt_txt.substr(11, 2)=="00")
+		{
+		cell1.innerHTML = "" +GetDay(d.getDay()) +"- Midnight 12";		
+		}
+		if(value.dt_txt.substr(11, 2)=="03")
+		{
+		cell1.innerHTML = "" +GetDay(d.getDay()) +"- Midnight 3";		
+		}
+		if(value.dt_txt.substr(11, 2)=="06")
+		{
+		cell1.innerHTML = "" +GetDay(d.getDay()) +"- Morning 6";		
+		}
+		if(value.dt_txt.substr(11, 2)=="09")
+		{
+		cell1.innerHTML = "" +GetDay(d.getDay()) +"- Morning 9";		
+		}
+		if(value.dt_txt.substr(11, 2)=="12")
+		{
+		cell1.innerHTML = "" +GetDay(d.getDay()) +"- Afternoon 12";		
+		}
+		if(value.dt_txt.substr(11, 2)=="15")
+		{
+		cell1.innerHTML = "" +GetDay(d.getDay()) +"- Afternoon 03";		
+		}
+	    if(value.dt_txt.substr(11, 2)=="18")
+		{
+		cell1.innerHTML = "" +GetDay(d.getDay()) +"- Evening 06";		
+		}
+	    if(value.dt_txt.substr(11, 2)=="21")
+		{
+		cell1.innerHTML = "" +GetDay(d.getDay()) +"- Night 09";		
+		}	
+		cell2.innerHTML =parseInt(parseInt(value.main.temp - 273 ))+ '°C';
+		
+		cell1.style.backgroundColor = "#FFD1A9";
+		if(parseInt(parseInt(value.main.temp - 273 ))>35)
+		{
+			cell2.style.backgroundImage = "url('Hot.png')";
+			cell2.className = "marquee";			
+			cell2.style.backgroundColor = "#FB6D4C";
+		}
+		else if(parseInt(parseInt(value.main.temp - 273 ))<24)
+		{
+		cell2.style.backgroundImage = "url('Cold.png')";
+		cell2.className = "marquee";			
+		cell2.style.backgroundColor = "#FF9E79";
+		}
+		else
+		{
+			cell2.style.backgroundColor = "#FFD1A9";
+		}
+		
+		cell3.innerHTML = value.weather[0].main + ' [ ' +value.weather[0].description + ' ]';	
+		cell3.style.backgroundColor = "LightGray";
+		cell3.style.font.bold =true;
+		cell4.innerHTML = "";
+		cell1.style.width="25%";
+		cell2.style.width="25%";
+		cell3.style.width="25%";
+		cell4.style.width="25%";
+		if(value.weather[0].main == "Rain")
+		{
+			cell4.style.backgroundImage = "url('Rain.png')";
+			if(value.weather[0].description=="light rain")
+			{	
+				cell4.style.backgroundColor = "skyblue";
+			}
+			else
+			{			
+				cell4.style.backgroundColor = "blue";
+			}
+			cell4.className = "marquee";			
+		}
+		else if(value.weather[0].main == "Clouds")
+		{
+			if(value.weather[0].description=="scattered clouds")
+			{
+			cell4.style.backgroundImage = "url('Cloud1.png')";
+			}
+			else
+			{
+			cell4.style.backgroundImage = "url('Cloud.png')";			
+			}
+			cell4.className = "marquee";			
+		}
+		else if (value.weather[0].main == "Clear")
+			{
+				//alert(value.dt_txt.substr(11, 2))
+				if(value.dt_txt.substr(11, 2)=="21" || value.dt_txt.substr(11, 2)=="00" || value.dt_txt.substr(11, 2)=="03" || value.dt_txt.substr(11, 2)=="06" )
+					{
+						cell4.style.backgroundImage = "url('Clear1.png')";
+					}
+					else
+					{
+						cell4.style.backgroundImage = "url('Clear.png')";
+					}
+			}
+			cell2.className = "marquee";						
+		});	
+    }
+});
+}
+function getid(obj) {
+  
+  var modal = document.getElementById("myModal");
+
+var span = document.getElementsByClassName("close")[0];
+
+const chars = obj.id.toString().split('_');
+document.getElementById("modelH").innerHTML = chars[1]+"_"+chars[2];
+document.getElementById("modelB1").innerHTML = chars[3]+" = " +chars[4];
+document.getElementById("modelB2").innerHTML = chars[5]+" = " + chars[6] + " and degree = "+chars[7];
+document.getElementById("modelF").innerHTML = chars[8]+" = "+chars[9];
+
+
+  modal.style.display = "block";
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+}
+
+
+function myFunction()
+{
+var citycode= document.getElementById('city').value;
+ $("#data tbody tr").remove(); 
+ $("#data1 tbody tr").remove();
+ var today = new Date();
+$.ajax({
+    url: "http://api.openweathermap.org/data/2.5/forecast?id="+citycode+"&APPID=dcd9966da430427a5d96d07b3b2ee497",
+
+    dataType: "jsonp",
+    success: function( response ) {				
+		var table = document.getElementById("data");
+		var id=0;
+			var table1 = document.getElementById("data1");
+			var row1 = table1.insertRow(0);
+			var row2 = table1.insertRow(1);
+		var id1=0;			
+		
+		$.each(response.list,function(index, value)
+		{	
+		
+			var cell21 = row1.insertCell(id1);
+			cell21.innerHTML =  value.dt_txt.substr(8, 2) + "{" + value.dt_txt.substr(11, 2)+"}";		
+			cell21.style.fontSize = "small";
+			var cell22 = row2.insertCell(id1);
+			cell22.innerHTML = parseInt(parseInt(value.main.temp - 273 ))+ '°C';					
+			
+			cell22.style.backgroundColor = "#FFD1A9";
+			cell21.style.backgroundColor = "#DFF280";
+			
+			cell22.id = "status_"+value.weather[0].main + '_' +value.weather[0].description + '_cloud_'+value.clouds.all+"_wind_"+value.wind.speed+"_"+value.wind.deg+"_Humidity_"+value.main.humidity;
+			
+			cell22.onmouseover = function(){getid(this)};
+			//
+			if(value.weather[0].main == "Rain")
+			{	
+			cell22.style.backgroundImage = "url('Rain.png')";
+			if(value.weather[0].description=="light rain")
+			{
+				cell22.style.backgroundColor = "skyblue";
+			}
+			else
+			{
+				cell22.style.backgroundColor = "blue";
+			}
+		}
+		else if(value.weather[0].main == "Clouds")
+		{
+			if(value.weather[0].description=="scattered clouds")
+			{
+			cell22.style.backgroundImage = "url('Cloud1.png')";
+			}
+			else
+			{
+			cell22.style.backgroundImage = "url('Cloud.png')";			
+			}
+		}
+		else if (value.weather[0].main == "Clear")
+			{
+				//alert(value.dt_txt.substr(11, 2))
+				if(value.dt_txt.substr(11, 2)=="21" || value.dt_txt.substr(11, 2)=="00" || value.dt_txt.substr(11, 2)=="03" || value.dt_txt.substr(11, 2)=="06" )
+					{
+						cell22.style.backgroundImage = "url('Clear1.png')";
+					}
+					else
+					{
+						cell22.style.backgroundImage = "url('Clear.png')";
+					}
+			}			
+			//
+			id1++;
+		});
+		
+		$.each(response.list,function(index, value)
+		{
+		if(id.toString() == "10".toString()) {return ;}
+		id++;
+		var d=new Date(value.dt_txt);
+		//alert(d.toLocaleTimeString())
+		var row = table.insertRow(0);
+		var cell1 = row.insertCell(0);
+		
+		var cell2 = row.insertCell(1);
+		var cell3 = row.insertCell(2);
+		var cell4 = row.insertCell(2);
+	
+		if(value.dt_txt.substr(11, 2)=="00")
+		{
+		cell1.innerHTML = "Midnight 12 [" +value.dt_txt.substr(8, 2) +"]";		
+		}
+		if(value.dt_txt.substr(11, 2)=="03")
+		{
+		cell1.innerHTML = "Midnight 3 [" +value.dt_txt.substr(8, 2) +"]";		
+		}
+		if(value.dt_txt.substr(11, 2)=="06")
+		{
+		cell1.innerHTML = "Morning 6 [" +value.dt_txt.substr(8, 2) +"]";		
+		}
+		if(value.dt_txt.substr(11, 2)=="09")
+		{
+		cell1.innerHTML = "Morning 9 [" +value.dt_txt.substr(8, 2) +"]";		
+		}
+		if(value.dt_txt.substr(11, 2)=="12")
+		{
+		cell1.innerHTML = "Afternoon 12 [" +value.dt_txt.substr(8, 2) +"]";		
+		}
+		if(value.dt_txt.substr(11, 2)=="15")
+		{
+		cell1.innerHTML = "Afternoon 03 [" +value.dt_txt.substr(8, 2) +"]";		
+		}
+	    if(value.dt_txt.substr(11, 2)=="18")
+		{
+		cell1.innerHTML = "Evening 06 [" +value.dt_txt.substr(8, 2) +"]";		
+		}
+	    if(value.dt_txt.substr(11, 2)=="21")
+		{
+		cell1.innerHTML = "EarlyNight 09 [" +value.dt_txt.substr(8, 2) +"]";		
+		}	
+			
+			
+		cell2.innerHTML =parseInt(parseInt(value.main.temp - 273 ))+ '°C';
+		
+		cell1.style.backgroundColor = "#FFD1A9";
+		if(parseInt(parseInt(value.main.temp - 273 ))>35)
+		{
+			cell2.style.backgroundImage = "url('Hot.png')";
+			cell2.className = "marquee";	
+			cell2.style.backgroundColor = "#FB6D4C";
+		}
+		else if(parseInt(parseInt(value.main.temp - 273 ))<24)
+		{
+		cell2.style.backgroundImage = "url('Cold.png')";
+		cell2.style.backgroundColor = "#FF9E79";
+		}
+		else
+		{
+			cell2.style.backgroundColor = "#FFD1A9";
+		}
+		cell3.innerHTML = value.weather[0].main + ' [ ' +value.weather[0].description + ' ]';	
+		cell3.style.backgroundColor = "LightGray";
+		cell3.style.font.bold =true;
+		cell4.innerHTML = "";
+		cell1.style.width="25%";
+		cell2.style.width="25%";
+		cell3.style.width="25%";
+		cell4.style.width="25%";
+		if(value.weather[0].main == "Rain")
+		{
+			cell4.style.backgroundImage = "url('Rain.png')";
+			if(value.weather[0].description=="light rain")
+			{
+				cell4.className = "marquee";
+				cell4.style.backgroundColor = "skyblue";
+			}
+			else
+			{
+				cell4.className = "marquee";
+				cell4.style.backgroundColor = "blue";
+			}
+		}
+		else if(value.weather[0].main == "Clouds")
+		{
+			if(value.weather[0].description=="scattered clouds")
+			{
+			cell4.className = "marquee";
+			cell4.style.backgroundImage = "url('Cloud1.png')";
+			}
+			else
+			{
+			cell4.className = "marquee";
+			cell4.style.backgroundImage = "url('Cloud.png')";			
+			}
+		}
+		else if (value.weather[0].main == "Clear")
+			{
+				//alert(value.dt_txt.substr(11, 2))
+				if(value.dt_txt.substr(11, 2)=="21" || value.dt_txt.substr(11, 2)=="00" || value.dt_txt.substr(11, 2)=="03" || value.dt_txt.substr(11, 2)=="06" )
+					{
+						cell4.style.backgroundImage = "url('Clear1.png')";
+					}
+					else
+					{
+						cell4.style.backgroundImage = "url('Clear.png')";
+					}
+			}				
+		});	
+    }
+});
+}
+</script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</head>
+<body onload="myFunction()" class="rain" style="background-image: url('bk.jpg');">
+<div class="header">
+  <h2 align="middle"> <font color="white">MAHARASHTRA WEATHER PREDICTION </font></h2>
+  <div class="row">
+  <div id="today1"></div>
+  <div id="today2"></div>
+  <div id="today3"></div>
+  </div>
+<table align="middle">
+<tr>
+<td align="center">
+<font color="white">Select Location :</font>
+<select id="city" name="city"  onChange=myFunction() align="center" >
+<option value="1266285">Kolhapur</option>
+<option value="8131502">Satara</option>
+<option value="1259229">Pune</option>
+<option value="1275339">Mumbai</option>
+<option value="1268651"> Kagal-Kolhapur</option>
+<option value="1266390"> Kodoli-Panhala-Kolhapur</option>
+<option value="1260488"> Panhala</option>
+<option value="1279154"> Aajra-Kolhapur</option>
+<option value="1257416"> Sangli</option>
+<option value="1275814"> Bhudgaon-Sangli</option>
+<option value="1269502"> Jaisingpur-Shirol</option>
+<option value="1261309"> Nipani</option>
+<option value="1278296"> Ashta-Walva-Sangli</option>
+<option value="1269834">Ichalkaranji</option>
+<option value="1265539"> Kurandvad-Shirol</option>
+<option value="1271834"> Gadhinglaj</option>
+<option value="1264491"> Mahabaleshwar</option>
+<option value="1264074"> Malkapur-Shahuwadi-Kolhapur</option>
+<option value="1267904"> Karad</option>
+<option value="1264793"> Lonavla</option>
+<option value="8131497"> Amravati Division</option>
+<option value="8131498"> Aurangabad</option>
+<option value="8131499"> Konkan Division</option>
+<option value="8131500"> Nagpur Division</option>
+<option value="8131501"> Nashik Division</option>
+<option value="1252770"> Yavatmāl</option>
+<option value="1252942"> Wardha</option>
+<option value="1253013"> Wai</option>
+<option value="1253052"> Talegaon Dabhade</option>
+<option value="1253372"> Vasai</option>
+<option value="1253894"> Ulhasnagar</option>
+<option value="1253918"> Ujhani</option>
+<option value="1254177"> Trimbak</option>
+<option value="1254661"> Thane</option>
+<option value="1255134"> Vadgaon Talegaon Dabhade</option>
+<option value="1256025"> Sirur</option>
+<option value="1256119"> Sinnar</option>
+<option value="1256426"> Shrigonda</option>
+<option value="1256469"> Shirwal</option>
+<option value="1256486"> Shirgaon</option>
+<option value="1256489"> Shirdi</option>
+<option value="1256620"> Shegaon</option>
+<option value="1256747"> Shahapur-Thane</option>
+<option value="1257409"> Sangola</option>
+<option value="1257436"> Sangamner</option>
+<option value="1258338"> Ratnagiri</option>
+<option value="1258553"> Ramtek</option>
+<option value="1258914"> Rajapur</option>
+<option value="1259004"> Raigarh Fort</option>
+<option value="1259005"> Raigarh</option>
+<option value="1259019"> Rahuri</option>
+<option value="1259026"> Rahimatpur</option>
+<option value="1259429"> Phonda</option>
+<option value="1259652"> Pimpri</option>
+<option value="1259811"> Phaltan</option>
+<option value="1259931"> Pen</option>
+<option value="1260177"> Patan</option>
+<option value="1260290"> Parli Vaijnāth</option>
+<option value="1260434"> Panvel</option>
+<option value="1260546"> Pandharpur</option>
+<option value="1260577"> Panchgani</option>
+<option value="1260607"> Panaji</option>
+<option value="1260833"> Paithan</option>
+<option value="1260959"> Pachora</option>
+<option value="1261012"> Osmanabad</option>
+<option value="1261731"> Nashik</option>
+<option value="1261931"> Nandurbar</option>
+<option value="1262073"> Naldurg</option>
+<option value="1262180"> Nagpur</option>
+<option value="1262403"> Murud</option>
+<option value="1262435"> Murgūd</option>
+<option value="1262873"> Mohpa</option>
+<option value="1262891"> Mohgaon</option>
+<option value="1263083"> Mhasvad</option>
+<option value="1263087"> Mhasla</option>
+<option value="1263664"> Manmad</option>
+<option value="1263684"> Majalgaon</option>
+<option value="1263937"> Manchar</option>
+<option value="1264007"> Malvan</option>
+<option value="1264071"> Malkapur-Buldhana</option>
+<option value="1264089"> Manjari-Mali-Pune</option>
+<option value="1264115"> Malegaon-Nashik</option>
+<option value="1264489"> Mahad</option>
+<option value="1264588"> Madgaon-Goa</option>
+<option value="1264816"> Lohogaon-Haveli Pune</option>
+<option value="1265014"> Latur</option>
+<option value="1265085"> Lanja</option>
+<option value="1265809"> Kudal-Sindhudurga</option>
+<option value="1266116"> Koregaon-Shirur - Pune</option>
+<option value="1266162"> Kopargaon-Ahmednagar</option>
+<option value="1266210"> Kondalwādi-Nanded-Maharashtra</option>
+<option value="1266666"> Khopoli</option>
+<option value="1266813"> Khed-Bhor</option>
+<option value="1266814"> Khed-Ratnaagiri</option>
+<option value="1266966"> Khadakvasla-Haveli-Pune</option>
+<option value="1267006"> Khapa-Nagpur</option>
+<option value="1267084"> Khamgaon-Buldhana</option>
+<option value="1267195"> Khadki-Pune</option>
+<option value="1267716"> Karmāla</option>
+<option value="1267742"> Karjat</option>
+<option value="1267853"> Kāranja-Washim</option>
+<option value="1268022"> Kānkon-All together</option>
+<option value="1268295"> Kalyān</option>
+<option value="1268761"> Junnar</option>
+<option value="1269395"> Jālna</option>
+<option value="1269406"> Jalgaon Jamod</option>
+<option value="1269407"> Jalgaon</option>
+<option value="1269410"> Jalgaon-Dapoli</option>
+<option value="1269750"> Republic of India</option>
+<option value="1269810"> Igatpuri</option>
+<option value="1270072"> Hingoli</option>
+<option value="1270077"> Hinganghāt-Wardh</option>a
+<option value="1270752"> Gulbarga</option>
+<option value="1270779"> Guhāgar</option>
+<option value="1270914"> Goregaon-Raigad</option>
+<option value="1271067"> Gokak-Impact Kolhapur</option>
+<option value="1272423"> Dombivli</option>
+<option value="1272596"> Digras-Yawatmal</option>
+<option value="1273304"> Dehu-Tukaramanchi</option>
+<option value="1273374"> Daund-Pune</option>
+<option value="1274119"> Chiplūn</option>
+<option value="1274165"> Chinchvad</option>
+<option value="1274175"> Chinchani-Palghar</option>
+<option value="1274237"> Chikhli-Buldhana</option>
+<option value="1274265"> Chicholi-Bhandara</option>
+<option value="1274868"> Chālisgaon</option>
+<option value="1274914">Chākan-Pune</option>
+<option value="1275117"> Buldāna</option>
+<option value="1275248"> Borivli</option>
+<option value="1275368"> Boisar-Palghar</option>
+<option value="1275778"> Bhusāval</option>
+<option value="1275836"> Bhor</option>
+<option value="1275901"> Bhiwandi</option>
+<option value="1276191"> Bhandāra</option>
+<option value="1276533"> Belgaum</option>
+<option value="1277976"> Badlapur</option>
+<option value="1278149"> Aurangabad</option>
+<option value="1278580"> Anjangaon-Paratwada</option>
+<option value="1278718"> Amrāvati</option>
+<option value="1278903"> Amarnāth-Mumbai</option>
+<option value="1279066"> Alandi-Devachi</option>
+<option value="1279105"> Akola</option>
+<option value="1279147"> Akalkot</option>
+  </select>
+  </td>
+  </tr>
+  <tr>
+<tr><td align="center">  
+  <font color="white">Enter  Location : </font><input type="text" id="search"/>
+  <input type="submit" onclick="SearchByCityName()" value="Search"></td></tr>
+  </table>
+</div>
+<div>
+  <table id="data">
+</table>
+<div style="overflow-x:auto;">
+ <table id="data1">
+</div>
+</div>
+
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2 id="modelH">Modal Header</h2>
+    </div>
+    <div class="modal-body">
+      <p  id="modelB1">Some text in the Modal Body</p>
+      <p  id="modelB2">Some other text...</p>
+    </div>
+    <div class="modal-footer">
+      <h3  id="modelF">Modal Footer</h3>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
